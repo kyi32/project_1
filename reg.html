@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guess the Number</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #262525;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 24px;
+      text-align: center;
+    }
+    
+    h1 {
+      color: #333;
+      margin-top: 0;
+    }
+    
+    p {
+      color: #666;
+      margin-bottom: 24px;
+    }
+    
+    label {
+      color: #333;
+      display: block;
+      margin-bottom: 12px;
+    }
+    
+    input[type="number"] {
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 200px;
+      margin-bottom: 16px;
+    }
+    
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    button:hover {
+      background-color: #45a049;
+    }
+    
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Guess the Number</h1>
+    <p>Try to guess the randomly generated number between 1 and 10.</p>
+    <label for="guess">Enter your guess:</label>
+    <input id="guess" type="number" min="1" max="100" required>
+    <br>
+    <button onclick="checkGuess()">Submit</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    var randomNumber = Math.floor(Math.random() * 10) + 1;
+    var attempts = 0;
+
+    function checkGuess() {
+      var guess = parseInt(document.getElementById("guess").value);
+
+      if (isNaN(guess)) {
+        alert("Please enter a valid number.");
+        return;
+      }
+
+      attempts++;
+
+      if (guess < randomNumber) {
+        displayResult("Too low! Try again.");
+      } else if (guess > randomNumber) {
+        displayResult("Too high! Try again.");
+      } else {
+        displayResult(
+          "Congratulations! You guessed the number " +
+            randomNumber +
+            " in " +
+            attempts +
+            " attempts."
+        );
+
+        // Reset the game
+        randomNumber = Math.floor(Math.random() * 10) + 1;
+        attempts = 0;
+      }
+    }
+
+    function displayResult(message) {
+      var resultElement = document.getElementById("result");
+      resultElement.textContent = message;
+    }
+  </script>
+</body>
+</html>
